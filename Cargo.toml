@@ -1,0 +1,40 @@
+[package]
+name = "sprout"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+description = "Ultra-fast Spring Boot scaffolding CLI inspired by NestJS CLI"
+license = "MIT"
+
+[lib]
+name = "sprout"
+path = "src/lib.rs"
+
+[[bin]]
+name = "sprout"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4.5", features = ["derive", "cargo"] }
+dialoguer = { version = "0.11", features = ["fuzzy-select"] }
+tera = "1.20"
+rust-embed = { version = "8.5", features = ["debug-embed"] }
+anyhow = "1"
+thiserror = "1"
+serde = { version = "1", features = ["derive"] }
+heck = "0.5"
+console = "0.15"
+walkdir = "2"
+regex = "1.10"
+once_cell = "1.19"
+
+[dev-dependencies]
+assert_cmd = "2"
+predicates = "3"
+tempfile = "3"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = "symbols"
+opt-level = 3

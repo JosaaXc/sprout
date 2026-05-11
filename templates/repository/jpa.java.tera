@@ -1,0 +1,10 @@
+package {{ packages.repository }};
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import {{ packages.entity }}.{{ name.pascal }};
+
+@Repository
+public interface {{ name.pascal }}Repository extends JpaRepository<{{ name.pascal }}, {{ id_type }}> {
+}

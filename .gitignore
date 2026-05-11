@@ -1,0 +1,15 @@
+/target
+**/*.rs.bk
+.cargo/
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.sprout/
+
+.env
+.env.local
+
+*.profraw
+tarpaulin-report.*

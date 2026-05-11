@@ -1,0 +1,18 @@
+package {{ packages.mapper }};
+
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+
+import {{ packages.dto }}.{{ name.pascal }}Request;
+import {{ packages.dto }}.{{ name.pascal }}Response;
+import {{ packages.entity }}.{{ name.pascal }};
+
+@Mapper(componentModel = "spring")
+public interface {{ name.pascal }}Mapper {
+
+    {{ name.pascal }} toEntity({{ name.pascal }}Request request);
+
+    {{ name.pascal }}Response toResponse({{ name.pascal }} entity);
+
+    void update(@MappingTarget {{ name.pascal }} entity, {{ name.pascal }}Request request);
+}

@@ -1,0 +1,10 @@
+package {{ packages.repository }};
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+
+import {{ packages.entity }}.{{ name.pascal }};
+
+@Repository
+public interface {{ name.pascal }}Repository extends MongoRepository<{{ name.pascal }}, {{ id_type }}> {
+}

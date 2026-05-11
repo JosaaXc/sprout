@@ -1,0 +1,19 @@
+package {{ packages.service }};
+
+import java.util.List;
+
+import {{ packages.dto }}.{{ name.pascal }}Request;
+import {{ packages.dto }}.{{ name.pascal }}Response;
+
+public interface {{ name.pascal }}Service {
+
+    {{ name.pascal }}Response create({{ name.pascal }}Request request);
+
+    {{ name.pascal }}Response findById({{ id_type }} id);
+
+    List<{{ name.pascal }}Response> findAll();
+
+    {{ name.pascal }}Response update({{ id_type }} id, {{ name.pascal }}Request request);
+
+    void delete({{ id_type }} id);
+}

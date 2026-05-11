@@ -1,0 +1,52 @@
+package {{ packages.service }};
+
+import java.util.List;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import {{ packages.dto }}.{{ name.pascal }}Request;
+import {{ packages.dto }}.{{ name.pascal }}Response;
+import {{ packages.mapper }}.{{ name.pascal }}Mapper;
+import {{ packages.repository }}.{{ name.pascal }}Repository;
+
+@Service
+@RequiredArgsConstructor
+public class {{ name.pascal }}ServiceImpl implements {{ name.pascal }}Service {
+
+    private final {{ name.pascal }}Repository {{ name.camel }}Repository;
+    private final {{ name.pascal }}Mapper {{ name.camel }}Mapper;
+
+    @Override
+    public {{ name.pascal }}Response create({{ name.pascal }}Request request) {
+        var entity = {{ name.camel }}Mapper.toEntity(request);
+        return {{ name.camel }}Mapper.toResponse({{ name.camel }}Repository.save(entity));
+    }
+
+    @Override
+    public {{ name.pascal }}Response findById({{ id_type }} id) {
+        return {{ name.camel }}Repository.findById(id)
+            .map({{ name.camel }}Mapper::toResponse)
+            .orElseThrow(() -> new IllegalArgumentException("{{ name.pascal }} not found: " + id));
+    }
+
+    @Override
+    public List<{{ name.pascal }}Response> findAll() {
+        return {{ name.camel }}Repository.findAll().stream()
+            .map({{ name.camel }}Mapper::toResponse)
+            .toList();
+    }
+
+    @Override
+    public {{ name.pascal }}Response update({{ id_type }} id, {{ name.pascal }}Request request) {
+        var existing = {{ name.camel }}Repository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("{{ name.pascal }} not found: " + id));
+        {{ name.camel }}Mapper.update(existing, request);
+        return {{ name.camel }}Mapper.toResponse({{ name.camel }}Repository.save(existing));
+    }
+
+    @Override
+    public void delete({{ id_type }} id) {
+        {{ name.camel }}Repository.deleteById(id);
+    }
+}

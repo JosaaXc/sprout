@@ -1,0 +1,9 @@
+package {{ packages.dto }};
+
+import jakarta.validation.constraints.NotBlank;
+
+public record {{ name.pascal }}Request(
+        @NotBlank(message = "name must not be blank")
+        String name
+) {
+}

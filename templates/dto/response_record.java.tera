@@ -1,0 +1,7 @@
+package {{ packages.dto }};
+
+public record {{ name.pascal }}Response(
+        {{ id_type }} id,
+        String name
+) {
+}
