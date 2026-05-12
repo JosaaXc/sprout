@@ -10,7 +10,11 @@ use crate::cli::schematic_kind::SchematicKind;
     long_about = "Sprout is a Rust-based CLI that generates Spring Boot code (entities, DTOs, services, controllers, mappers) from a small set of opinionated, configurable templates."
 )]
 pub struct SproutCli {
-    #[arg(long, global = true, help = "Skip generating unit and integration tests")]
+    #[arg(
+        long,
+        global = true,
+        help = "Skip generating unit and integration tests"
+    )]
     pub skip_test: bool,
 
     #[command(subcommand)]
@@ -19,12 +23,15 @@ pub struct SproutCli {
 
 #[derive(Debug, Subcommand)]
 pub enum Command {
-    #[command(alias = "g", about = "Generate Spring Boot artifacts")]
+    #[command(alias = "g", about = "Generate Spring Boot artifacts (interactive when args are omitted)")]
     Generate(GenerateArgs),
 }
 
 #[derive(Debug, Args)]
 pub struct GenerateArgs {
-    #[command(subcommand)]
-    pub kind: SchematicKind,
+    #[arg(value_enum, help = "What to generate (omit for interactive picker)")]
+    pub kind: Option<SchematicKind>,
+
+    #[arg(help = "Resource name (omit for interactive prompt). Accepts kebab-case or PascalCase, e.g. user or user-account")]
+    pub name: Option<String>,
 }

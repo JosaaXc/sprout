@@ -9,15 +9,15 @@ use crate::schematics::{
 pub struct SchematicRegistry;
 
 impl SchematicRegistry {
-    pub fn resolve(kind: &SchematicKind) -> Box<dyn Schematic> {
+    pub fn resolve(kind: SchematicKind) -> Box<dyn Schematic> {
         match kind {
-            SchematicKind::Resource { .. } => Box::new(ResourceSchematic),
-            SchematicKind::Service { .. } => Box::new(ServiceSchematic),
-            SchematicKind::Controller { .. } => Box::new(ControllerSchematic),
-            SchematicKind::Entity { .. } => Box::new(EntitySchematic),
-            SchematicKind::Dto { .. } => Box::new(DtoSchematic),
-            SchematicKind::Mapper { .. } => Box::new(MapperSchematic),
-            SchematicKind::Repository { .. } => Box::new(RepositorySchematic),
+            SchematicKind::Resource => Box::new(ResourceSchematic),
+            SchematicKind::Service => Box::new(ServiceSchematic),
+            SchematicKind::Controller => Box::new(ControllerSchematic),
+            SchematicKind::Entity => Box::new(EntitySchematic),
+            SchematicKind::Dto => Box::new(DtoSchematic),
+            SchematicKind::Mapper => Box::new(MapperSchematic),
+            SchematicKind::Repository => Box::new(RepositorySchematic),
         }
     }
 }

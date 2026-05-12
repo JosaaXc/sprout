@@ -157,6 +157,9 @@ mod tests {
         let injected = inject_into_dependencies(pom, &build_snippet(&dep)).unwrap();
         let mapstruct_idx = injected.find("<artifactId>mapstruct</artifactId>").unwrap();
         let mgmt_close = injected.find("</dependencyManagement>").unwrap();
-        assert!(mapstruct_idx > mgmt_close, "mapstruct must land in the project-level <dependencies>, not in dependencyManagement");
+        assert!(
+            mapstruct_idx > mgmt_close,
+            "mapstruct must land in the project-level <dependencies>, not in dependencyManagement"
+        );
     }
 }

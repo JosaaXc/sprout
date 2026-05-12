@@ -49,7 +49,11 @@ impl DiskFileWriter {
     }
 
     pub fn with_policy(base_path: PathBuf, policy: Box<dyn OverwritePolicy>) -> Self {
-        Self { base_path, test_base_path: None, policy }
+        Self {
+            base_path,
+            test_base_path: None,
+            policy,
+        }
     }
 
     pub fn write(&self, output: SchematicOutput) -> Result<WriteOutcome> {

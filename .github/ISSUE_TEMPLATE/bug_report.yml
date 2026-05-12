@@ -1,0 +1,66 @@
+name: 🐛 Bug Report
+description: Something is generating wrong, crashing, or behaving unexpectedly
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. The more detail, the faster we can ship a fix.
+
+  - type: input
+    id: version
+    attributes:
+      label: Sprout version
+      description: Output of `sprout --version`
+      placeholder: "0.1.1"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      options:
+        - Linux
+        - macOS
+        - Windows
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect? What did you observe?
+      placeholder: I ran `sprout g resource user` and ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Minimal commands a maintainer can copy/paste to see the same failure.
+      placeholder: |
+        1. `mkdir demo && cd demo`
+        2. Create `src/main/java/com/example/DemoApplication.java` with @SpringBootApplication
+        3. Run `sprout g entity user`
+        4. Observe ...
+      render: bash
+    validations:
+      required: true
+
+  - type: textarea
+    id: project-context
+    attributes:
+      label: Project context (optional)
+      description: Build tool (Maven/Gradle), Spring Boot version, anything unusual about the layout.
+      placeholder: Spring Boot 3.2 with Maven, multi-module Gradle, ...
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Output / logs
+      description: Paste the full terminal output, including the panic or error trace.
+      render: text

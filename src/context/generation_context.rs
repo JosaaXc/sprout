@@ -35,7 +35,7 @@ pub struct GenerationContext {
 
 impl GenerationContext {
     pub fn build(
-        kind: &SchematicKind,
+        kind: SchematicKind,
         raw_name: &str,
         project: &ProjectContext,
         prompter: &dyn InteractivePrompter,

@@ -57,10 +57,14 @@ fn test_cli_generate_resource_non_interactive() {
     assert!(main_java
         .join("product/controller/ProductController.java")
         .exists());
-    
+
     let test_java = temp.path().join("src/test/java/com/acme/demo");
-    assert!(test_java.join("product/service/ProductServiceTest.java").exists());
-    assert!(test_java.join("product/controller/ProductControllerTest.java").exists());
+    assert!(test_java
+        .join("product/service/ProductServiceTest.java")
+        .exists());
+    assert!(test_java
+        .join("product/controller/ProductControllerTest.java")
+        .exists());
 }
 
 #[test]
@@ -93,7 +97,9 @@ fn test_cli_generate_mongo_and_class_style_non_interactive() {
     assert!(main_java
         .join("customer/repository/CustomerRepository.java")
         .exists());
-        
+
     let test_java = temp.path().join("src/test/java/com/acme/demo");
-    assert!(test_java.join("customer/service/CustomerServiceTest.java").exists());
+    assert!(test_java
+        .join("customer/service/CustomerServiceTest.java")
+        .exists());
 }

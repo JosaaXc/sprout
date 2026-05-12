@@ -1,0 +1,40 @@
+name: ✨ Feature Request
+description: Suggest a new schematic, prompt, integration, or improvement
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea! Please describe the use case, not just the solution — context helps us design well.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's the problem you're trying to solve?
+      description: What are you doing in your Spring Boot project that Sprout doesn't help with today?
+      placeholder: When I add a new resource I also need ... but I have to write it by hand.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How could Sprout support this? A new schematic? A new prompt? A flag?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you've considered
+      description: Other tools, manual workarounds, or other shapes this feature could take.
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: This fits Sprout's mission (incremental scaffolding of Spring Boot code) — it is not "scaffold a whole app from scratch" (use JHipster) or "generate non-Java code"
+          required: true
