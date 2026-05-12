@@ -30,6 +30,7 @@ pub struct GenerationContext {
     pub id_type: String,
     pub repository_base_class: String,
     pub packages: PackageMap,
+    pub skip_test: bool,
 }
 
 impl GenerationContext {
@@ -38,6 +39,7 @@ impl GenerationContext {
         raw_name: &str,
         project: &ProjectContext,
         prompter: &dyn InteractivePrompter,
+        skip_test: bool,
     ) -> Result<Self> {
         let architecture = prompter.ask_architecture()?;
 
@@ -67,6 +69,7 @@ impl GenerationContext {
             id_type: persistence.id_type().to_string(),
             repository_base_class: persistence.repository_base_class().to_string(),
             packages,
+            skip_test,
         })
     }
 }

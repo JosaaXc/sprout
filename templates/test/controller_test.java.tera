@@ -1,0 +1,33 @@
+package {{ packages.controller }};
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.Mockito.*;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
+
+import {{ packages.service }}.{{ name.pascal }}Service;
+
+@WebMvcTest({{ name.pascal }}Controller.class)
+class {{ name.pascal }}ControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockitoBean
+    private {{ name.pascal }}Service {{ name.camel }}Service;
+
+    @Test
+    void testFindAll() throws Exception {
+        // Arrange
+        // when({{ name.camel }}Service.findAll()).thenReturn(List.of());
+
+        // Act & Assert
+        mockMvc.perform(get("/api/{{ name.kebab }}s"))
+                .andExpect(status().isOk());
+    }
+}

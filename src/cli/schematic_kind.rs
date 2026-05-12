@@ -52,7 +52,8 @@ impl SchematicKind {
         raw_name: &str,
         project: &ProjectContext,
         prompter: &dyn InteractivePrompter,
+        skip_test: bool,
     ) -> Result<GenerationContext> {
-        GenerationContext::build(self, raw_name, project, prompter)
+        GenerationContext::build(self, raw_name, project, prompter, skip_test)
     }
 }

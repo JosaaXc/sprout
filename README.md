@@ -237,7 +237,7 @@ For the full design, the trait hierarchy, and how to extend Sprout, see **[CONTR
 ## 💬 Community
 
 - 🐛 **Bug reports & feature requests:** [open an issue](https://github.com/JosaaXc/sprout/issues)
-- 💡 **Ideas & discussion:** [GitHub Discussions](https://github.com/JosaaXc/sprout/discussions)
+- 💡 **Ideas & discussion:** [GitHub Issues](https://github.com/JosaaXc/sprout/issues)
 - 🤝 **Contributing:** [CONTRIBUTING.md](CONTRIBUTING.md)
 - 📜 **Code of Conduct:** [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 
@@ -253,6 +253,6 @@ Sprout is licensed under the **MIT License**. See [LICENSE](LICENSE).
 
 **Built with 🦀 Rust. Made for ☕ Java developers.**
 
-If Sprout saved you ten minutes today, ⭐ the repo. If it saved you an hour, [send us a screenshot](https://github.com/JosaaXc/sprout/discussions).
+If Sprout saved you ten minutes today, ⭐ the repo. If it saved you an hour, [drop a comment in our issues](https://github.com/JosaaXc/sprout/issues).
 
 </div>

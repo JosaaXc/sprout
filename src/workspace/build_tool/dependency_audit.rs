@@ -46,12 +46,16 @@ pub fn audit_and_offer_install(
             "the missing dependencies"
         }
     );
-    let answer = Confirm::with_theme(&ColorfulTheme::default())
-        .with_prompt(prompt)
-        .default(true)
-        .show_default(true)
-        .interact()
-        .unwrap_or(false);
+    let answer = if std::env::var("SPROUT_NON_INTERACTIVE").is_ok() {
+        true
+    } else {
+        Confirm::with_theme(&ColorfulTheme::default())
+            .with_prompt(prompt)
+            .default(true)
+            .show_default(true)
+            .interact()
+            .unwrap_or(false)
+    };
 
     if !answer {
         println!(

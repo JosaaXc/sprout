@@ -23,6 +23,7 @@ impl Schematic for ControllerSchematic {
                 &format!("{}Controller.java", ctx.name.pascal),
             ),
             contents,
+            is_test: false,
         }])
     }
 }

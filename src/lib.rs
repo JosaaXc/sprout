@@ -40,12 +40,11 @@ fn dispatch(cli: SproutCli) -> Result<()> {
 
             let prompter = DialoguerPrompter::new();
             let engine = TeraEngine::with_embedded_templates()?;
-            let writer = DiskFileWriter::new(project.base_path().to_path_buf());
 
             let raw_name = args.kind.name().to_string();
             let context = args
                 .kind
-                .collect_context(&raw_name, &project, &prompter)?;
+                .collect_context(&raw_name, &project, &prompter, cli.skip_test)?;
 
             if let Ok(build_tool) = detect_build_tool(project.root()) {
                 dependency_audit::audit_and_offer_install(build_tool.as_ref(), &context)?;
@@ -55,6 +54,9 @@ fn dispatch(cli: SproutCli) -> Result<()> {
             let outputs = schematic.generate(&context, &engine)?;
 
             println!();
+            let mut writer = DiskFileWriter::new(project.base_path().to_path_buf());
+            writer.test_base_path = Some(project.test_base_path().to_path_buf());
+            
             for output in outputs {
                 writer.write(output)?;
             }

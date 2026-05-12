@@ -25,6 +25,7 @@ impl Schematic for DtoSchematic {
                     &format!("{}Request.java", ctx.name.pascal),
                 ),
                 contents: request,
+                is_test: false,
             },
             SchematicOutput {
                 relative_path: artifact_path(
@@ -32,6 +33,7 @@ impl Schematic for DtoSchematic {
                     &format!("{}Response.java", ctx.name.pascal),
                 ),
                 contents: response,
+                is_test: false,
             },
         ])
     }

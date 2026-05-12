@@ -1,0 +1,43 @@
+package {{ packages.service }};
+
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import {{ packages.repository }}.{{ name.pascal }}Repository;
+import {{ packages.mapper }}.{{ name.pascal }}Mapper;
+
+@ExtendWith(MockitoExtension.class)
+class {{ name.pascal }}ServiceTest {
+
+    @Mock
+    private {{ name.pascal }}Repository {{ name.camel }}Repository;
+
+    @Mock
+    private {{ name.pascal }}Mapper {{ name.camel }}Mapper;
+
+    @InjectMocks
+    private {{ name.pascal }}ServiceImpl {{ name.camel }}Service;
+
+    @BeforeEach
+    void setUp() {
+        // Setup mock behavior here
+    }
+
+    @Test
+    void testFindAll() {
+        // Arrange
+        
+        // Act
+        // var result = {{ name.camel }}Service.findAll();
+        
+        // Assert
+        // assertNotNull(result);
+    }
+}

@@ -12,10 +12,13 @@ pub mod registry;
 pub mod repository_schematic;
 pub mod resource_schematic;
 pub mod service_schematic;
+pub mod service_test_schematic;
+pub mod controller_test_schematic;
 
 pub struct SchematicOutput {
     pub relative_path: PathBuf,
     pub contents: String,
+    pub is_test: bool,
 }
 
 pub trait Schematic {

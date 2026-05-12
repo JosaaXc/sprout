@@ -20,6 +20,7 @@ impl Schematic for EntitySchematic {
         Ok(vec![SchematicOutput {
             relative_path: artifact_path(&sub_path, &format!("{}.java", ctx.name.pascal)),
             contents,
+            is_test: false,
         }])
     }
 }

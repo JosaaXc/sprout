@@ -20,6 +20,7 @@ impl Schematic for MapperSchematic {
         Ok(vec![SchematicOutput {
             relative_path: artifact_path(&sub_path, &format!("{}Mapper.java", ctx.name.pascal)),
             contents,
+            is_test: false,
         }])
     }
 }

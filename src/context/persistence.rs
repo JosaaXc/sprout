@@ -1,16 +1,11 @@
 use serde::Serialize;
 
-#[derive(Debug, Clone, Copy, Serialize, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, Serialize, PartialEq, Eq, Default)]
 #[serde(rename_all = "snake_case")]
 pub enum Persistence {
+    #[default]
     JpaRelational,
     MongoDb,
-}
-
-impl Default for Persistence {
-    fn default() -> Self {
-        Self::JpaRelational
-    }
 }
 
 impl Persistence {

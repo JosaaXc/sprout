@@ -37,6 +37,11 @@ impl ProjectContext {
     pub fn source_root(&self) -> PathBuf {
         self.root.join("src/main/java")
     }
+
+    pub fn test_base_path(&self) -> PathBuf {
+        let package_path = self.base_package.replace('.', "/");
+        self.root.join("src/test/java").join(package_path)
+    }
 }
 
 pub struct ProjectDetector;
@@ -83,7 +88,7 @@ fn find_spring_boot_application(source_root: &Path) -> Result<(PathBuf, String)>
         if !entry.file_type().is_file() {
             continue;
         }
-        if entry.path().extension().is_none_or(|ext| ext != "java") {
+        if entry.path().extension().map_or(true, |ext| ext != "java") {
             continue;
         }
         let contents = match fs::read_to_string(entry.path()) {

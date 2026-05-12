@@ -1,17 +1,12 @@
 use serde::Serialize;
 
-#[derive(Debug, Clone, Copy, Serialize, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, Serialize, PartialEq, Eq, Default)]
 #[serde(rename_all = "snake_case")]
 pub enum Architecture {
+    #[default]
     Modular,
     Layered,
     Hexagonal,
-}
-
-impl Default for Architecture {
-    fn default() -> Self {
-        Self::Modular
-    }
 }
 
 impl Architecture {
@@ -30,8 +25,8 @@ impl Architecture {
     pub fn path_for(&self, feature: &str, artifact: ArtifactKind) -> String {
         use ArtifactKind::*;
         match (self, artifact) {
-            (Self::Layered, Service) => "service".into(),
-            (Self::Layered, Controller) => "controller".into(),
+            (Self::Layered, Service) | (Self::Layered, ServiceTest) => "service".into(),
+            (Self::Layered, Controller) | (Self::Layered, ControllerTest) => "controller".into(),
             (Self::Layered, Entity) => "entity".into(),
             (Self::Layered, Dto) => "dto".into(),
             (Self::Layered, Mapper) => "mapper".into(),
@@ -39,8 +34,12 @@ impl Architecture {
 
             (Self::Modular, k) => format!("{feature}/{}", k.folder()),
 
-            (Self::Hexagonal, Service) => format!("{feature}/application"),
-            (Self::Hexagonal, Controller) => format!("{feature}/infrastructure/web"),
+            (Self::Hexagonal, Service) | (Self::Hexagonal, ServiceTest) => {
+                format!("{feature}/application")
+            }
+            (Self::Hexagonal, Controller) | (Self::Hexagonal, ControllerTest) => {
+                format!("{feature}/infrastructure/web")
+            }
             (Self::Hexagonal, Entity) => format!("{feature}/domain/model"),
             (Self::Hexagonal, Dto) => format!("{feature}/application/dto"),
             (Self::Hexagonal, Mapper) => format!("{feature}/infrastructure/mapper"),
@@ -61,13 +60,15 @@ pub enum ArtifactKind {
     Dto,
     Mapper,
     Repository,
+    ServiceTest,
+    ControllerTest,
 }
 
 impl ArtifactKind {
     pub fn folder(&self) -> &'static str {
         match self {
-            Self::Service => "service",
-            Self::Controller => "controller",
+            Self::Service | Self::ServiceTest => "service",
+            Self::Controller | Self::ControllerTest => "controller",
             Self::Entity => "entity",
             Self::Dto => "dto",
             Self::Mapper => "mapper",

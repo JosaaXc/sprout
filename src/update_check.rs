@@ -44,13 +44,10 @@ impl UpdateProbe {
         let Some(rx) = self.receiver else {
             return;
         };
-        match rx.recv_timeout(FINALIZE_TIMEOUT) {
-            Ok(Some(new_version)) => {
-                if new_version != CURRENT_VERSION {
-                    print_update_box(&new_version);
-                }
+        if let Ok(Some(new_version)) = rx.recv_timeout(FINALIZE_TIMEOUT) {
+            if new_version != CURRENT_VERSION {
+                print_update_box(&new_version);
             }
-            _ => {}
         }
     }
 }

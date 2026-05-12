@@ -5,25 +5,26 @@ use crate::context::generation_context::GenerationContext;
 use crate::rendering::tera_engine::TeraEngine;
 use crate::schematics::{artifact_path, Schematic, SchematicOutput};
 
-pub struct RepositorySchematic;
+pub struct ServiceTestSchematic;
 
-impl Schematic for RepositorySchematic {
+impl Schematic for ServiceTestSchematic {
     fn generate(
         &self,
         ctx: &GenerationContext,
         engine: &TeraEngine,
     ) -> Result<Vec<SchematicOutput>> {
+        let contents = engine.render("test/service_test.java.tera", ctx)?;
         let sub_path = ctx
             .architecture
-            .path_for(&ctx.name.kebab, ArtifactKind::Repository);
-        let contents = engine.render(ctx.persistence.repository_template(), ctx)?;
+            .path_for(&ctx.name.kebab, ArtifactKind::ServiceTest);
+
         Ok(vec![SchematicOutput {
             relative_path: artifact_path(
                 &sub_path,
-                &format!("{}Repository.java", ctx.name.pascal),
+                &format!("{}ServiceTest.java", ctx.name.pascal),
             ),
             contents,
-            is_test: false,
+            is_test: true,
         }])
     }
 }

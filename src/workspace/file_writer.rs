@@ -34,24 +34,31 @@ pub enum WriteOutcome {
 }
 
 pub struct DiskFileWriter {
-    base_path: PathBuf,
-    policy: Box<dyn OverwritePolicy>,
+    pub base_path: PathBuf,
+    pub test_base_path: Option<PathBuf>,
+    pub policy: Box<dyn OverwritePolicy>,
 }
 
 impl DiskFileWriter {
     pub fn new(base_path: PathBuf) -> Self {
         Self {
             base_path,
+            test_base_path: None,
             policy: Box::new(InteractiveOverwritePolicy),
         }
     }
 
     pub fn with_policy(base_path: PathBuf, policy: Box<dyn OverwritePolicy>) -> Self {
-        Self { base_path, policy }
+        Self { base_path, test_base_path: None, policy }
     }
 
     pub fn write(&self, output: SchematicOutput) -> Result<WriteOutcome> {
-        let target = self.base_path.join(&output.relative_path);
+        let base = if output.is_test {
+            self.test_base_path.as_ref().unwrap_or(&self.base_path)
+        } else {
+            &self.base_path
+        };
+        let target = base.join(&output.relative_path);
         let display = target.display().to_string();
 
         if target.exists() {

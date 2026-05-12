@@ -27,6 +27,7 @@ impl Schematic for ServiceSchematic {
                     &format!("{}Service.java", ctx.name.pascal),
                 ),
                 contents: interface,
+                is_test: false,
             },
             SchematicOutput {
                 relative_path: artifact_path(
@@ -34,6 +35,7 @@ impl Schematic for ServiceSchematic {
                     &format!("{}ServiceImpl.java", ctx.name.pascal),
                 ),
                 contents: implementation,
+                is_test: false,
             },
         ])
     }

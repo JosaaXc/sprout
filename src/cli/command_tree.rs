@@ -10,6 +10,9 @@ use crate::cli::schematic_kind::SchematicKind;
     long_about = "Sprout is a Rust-based CLI that generates Spring Boot code (entities, DTOs, services, controllers, mappers) from a small set of opinionated, configurable templates."
 )]
 pub struct SproutCli {
+    #[arg(long, global = true, help = "Skip generating unit and integration tests")]
+    pub skip_test: bool,
+
     #[command(subcommand)]
     pub command: Command,
 }
