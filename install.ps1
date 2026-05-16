@@ -70,6 +70,27 @@ try {
 
     Write-Host ""
     & $exeDst --version 2>$null
+
+    function Write-Banner {
+        $cyan = [ConsoleColor]::Cyan
+        Write-Host ""
+        Write-Host "╭───────────────────────────────────────────────────────────────╮" -ForegroundColor $cyan
+        Write-Host "│                                                               │" -ForegroundColor $cyan
+        Write-Host "│    🌱  Welcome to Sprout!                                     │" -ForegroundColor $cyan
+        Write-Host "│                                                               │" -ForegroundColor $cyan
+        Write-Host "│    The missing scaffolding CLI for Spring Boot.               │" -ForegroundColor $cyan
+        Write-Host "│                                                               │" -ForegroundColor $cyan
+        Write-Host "│    🚀  Quick start:                                           │" -ForegroundColor $cyan
+        Write-Host "│         sprout g                                              │" -ForegroundColor $cyan
+        Write-Host "│                                                               │" -ForegroundColor $cyan
+        Write-Host "│    📖  Docs:    https://github.com/JosaaXc/sprout             │" -ForegroundColor $cyan
+        Write-Host "│    ⭐  Star us: https://github.com/JosaaXc/sprout/stargazers  │" -ForegroundColor $cyan
+        Write-Host "│    🐛  Issues:  https://github.com/JosaaXc/sprout/issues      │" -ForegroundColor $cyan
+        Write-Host "│                                                               │" -ForegroundColor $cyan
+        Write-Host "╰───────────────────────────────────────────────────────────────╯" -ForegroundColor $cyan
+        Write-Host ""
+    }
+    Write-Banner
 } finally {
     Remove-Item -Recurse -Force $tmp -ErrorAction SilentlyContinue
 }

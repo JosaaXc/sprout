@@ -15,7 +15,7 @@ impl Schematic for MapperSchematic {
     ) -> Result<Vec<SchematicOutput>> {
         let sub_path = ctx
             .architecture
-            .path_for(&ctx.name.kebab, ArtifactKind::Mapper);
+            .path_for(&ctx.name.kebab, ArtifactKind::Mapper, &ctx.conventions);
         let contents = engine.render("mapper/mapstruct.java.tera", ctx)?;
         Ok(vec![SchematicOutput {
             relative_path: artifact_path(&sub_path, &format!("{}Mapper.java", ctx.name.pascal)),

@@ -15,7 +15,7 @@ impl Schematic for DtoSchematic {
     ) -> Result<Vec<SchematicOutput>> {
         let sub_path = ctx
             .architecture
-            .path_for(&ctx.name.kebab, ArtifactKind::Dto);
+            .path_for(&ctx.name.kebab, ArtifactKind::Dto, &ctx.conventions);
         let request = engine.render(ctx.dto_style.request_template(), ctx)?;
         let response = engine.render(ctx.dto_style.response_template(), ctx)?;
         Ok(vec![

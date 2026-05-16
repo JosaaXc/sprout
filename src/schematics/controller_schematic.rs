@@ -15,7 +15,7 @@ impl Schematic for ControllerSchematic {
     ) -> Result<Vec<SchematicOutput>> {
         let sub_path = ctx
             .architecture
-            .path_for(&ctx.name.kebab, ArtifactKind::Controller);
+            .path_for(&ctx.name.kebab, ArtifactKind::Controller, &ctx.conventions);
         let contents = engine.render("controller/controller.java.tera", ctx)?;
         Ok(vec![SchematicOutput {
             relative_path: artifact_path(

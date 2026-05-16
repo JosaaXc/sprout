@@ -15,7 +15,7 @@ impl Schematic for EntitySchematic {
     ) -> Result<Vec<SchematicOutput>> {
         let sub_path = ctx
             .architecture
-            .path_for(&ctx.name.kebab, ArtifactKind::Entity);
+            .path_for(&ctx.name.kebab, ArtifactKind::Entity, &ctx.conventions);
         let contents = engine.render(ctx.persistence.entity_template(), ctx)?;
         Ok(vec![SchematicOutput {
             relative_path: artifact_path(&sub_path, &format!("{}.java", ctx.name.pascal)),

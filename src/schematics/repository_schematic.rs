@@ -15,7 +15,7 @@ impl Schematic for RepositorySchematic {
     ) -> Result<Vec<SchematicOutput>> {
         let sub_path = ctx
             .architecture
-            .path_for(&ctx.name.kebab, ArtifactKind::Repository);
+            .path_for(&ctx.name.kebab, ArtifactKind::Repository, &ctx.conventions);
         let contents = engine.render(ctx.persistence.repository_template(), ctx)?;
         Ok(vec![SchematicOutput {
             relative_path: artifact_path(

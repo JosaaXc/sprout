@@ -14,9 +14,11 @@ impl Schematic for ServiceTestSchematic {
         engine: &TeraEngine,
     ) -> Result<Vec<SchematicOutput>> {
         let contents = engine.render("test/service_test.java.tera", ctx)?;
-        let sub_path = ctx
-            .architecture
-            .path_for(&ctx.name.kebab, ArtifactKind::ServiceTest);
+        let sub_path = ctx.architecture.path_for(
+            &ctx.name.kebab,
+            ArtifactKind::ServiceTest,
+            &ctx.conventions,
+        );
 
         Ok(vec![SchematicOutput {
             relative_path: artifact_path(

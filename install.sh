@@ -97,3 +97,30 @@ esac
 
 echo
 "$INSTALL_DIR/$BIN_NAME" --version 2>/dev/null || true
+
+print_banner() {
+    local cyan="" bold="" dim="" reset=""
+    if [ -t 1 ]; then
+        cyan="\033[36m"
+        bold="\033[1m"
+        dim="\033[2m"
+        reset="\033[0m"
+    fi
+    printf '\n'
+    printf '%b╭───────────────────────────────────────────────────────────────╮%b\n' "$cyan" "$reset"
+    printf '%b│%b                                                               %b│%b\n' "$cyan" "$reset" "$cyan" "$reset"
+    printf '%b│%b    🌱  %bWelcome to Sprout!%b                                     %b│%b\n' "$cyan" "$reset" "$bold" "$reset" "$cyan" "$reset"
+    printf '%b│%b                                                               %b│%b\n' "$cyan" "$reset" "$cyan" "$reset"
+    printf '%b│%b    The missing scaffolding CLI for Spring Boot.               %b│%b\n' "$cyan" "$reset" "$cyan" "$reset"
+    printf '%b│%b                                                               %b│%b\n' "$cyan" "$reset" "$cyan" "$reset"
+    printf '%b│%b    🚀  %bQuick start:%b                                           %b│%b\n' "$cyan" "$reset" "$bold" "$reset" "$cyan" "$reset"
+    printf '%b│%b         %bsprout g%b                                              %b│%b\n' "$cyan" "$reset" "$bold" "$reset" "$cyan" "$reset"
+    printf '%b│%b                                                               %b│%b\n' "$cyan" "$reset" "$cyan" "$reset"
+    printf '%b│%b    📖  Docs:    %bhttps://github.com/JosaaXc/sprout             %b│%b\n' "$cyan" "$reset" "$dim" "$reset" "$cyan" "$reset"
+    printf '%b│%b    ⭐  Star us: %bhttps://github.com/JosaaXc/sprout/stargazers  %b│%b\n' "$cyan" "$reset" "$dim" "$reset" "$cyan" "$reset"
+    printf '%b│%b    🐛  Issues:  %bhttps://github.com/JosaaXc/sprout/issues      %b│%b\n' "$cyan" "$reset" "$dim" "$reset" "$cyan" "$reset"
+    printf '%b│%b                                                               %b│%b\n' "$cyan" "$reset" "$cyan" "$reset"
+    printf '%b╰───────────────────────────────────────────────────────────────╯%b\n' "$cyan" "$reset"
+    printf '\n'
+}
+print_banner

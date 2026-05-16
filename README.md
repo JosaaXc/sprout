@@ -6,7 +6,7 @@
 **Blazing fast, NestJS-like experience — written in Rust.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.1.0-orange.svg)](Cargo.toml)
+[![Version](https://img.shields.io/badge/version-0.2.0-orange.svg)](Cargo.toml)
 [![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](#)
 [![Made with Rust](https://img.shields.io/badge/Made%20with-Rust-CE422B?logo=rust&logoColor=white)](https://www.rust-lang.org/)
 [![Spring Boot 3.x](https://img.shields.io/badge/Spring%20Boot-3.x-6DB33F?logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
@@ -45,6 +45,7 @@ Sprout is **not a JHipster replacement**. It's the missing nimble tool for the 9
 
 ### 🔮 Workspace Intelligence
 - 🧭 **Auto-discovers your base package** by scanning `src/main/java` for the `@SpringBootApplication` class — never hard-code a path again.
+- 🪄 **Detects folder conventions.** Already have `model/` instead of `entity/`? `repositories/` instead of `repository/`? Sprout uses what's already there. Synonyms: entity ↔ model/domain, repository ↔ repo/dao, dto ↔ payload, mapper ↔ converter, controller ↔ web/api/endpoint, service ↔ usecase.
 - 🛠️ **Detects Maven or Gradle** automatically (`pom.xml`, `build.gradle`, `build.gradle.kts`).
 - 📦 **Smart dependency injection.** Missing `mapstruct`, `spring-boot-starter-validation`, `spring-boot-starter-data-jpa` or `spring-boot-starter-data-mongodb`? Sprout *offers to add them* to your `pom.xml` / `build.gradle` before generating files, so the output compiles immediately.
 - 🛡️ **Anti-overwrite protection.** If a target file already exists, Sprout prompts:
@@ -52,6 +53,9 @@ Sprout is **not a JHipster replacement**. It's the missing nimble tool for the 9
   ⚠️  File UserService.java already exists. Overwrite? (y/N)
   ```
   Decline once → that file is skipped; the rest of the slice still generates.
+- 🪝 **Custom template overrides.** Drop any `.tera` file under `.sprout/templates/<same-path>` in your project root and Sprout uses yours instead of the embedded one. Zero recompilation.
+- 🩺 **`sprout doctor`** runs a health check on your project: Spring Boot detected? Build tool recognized? Required dependencies present? Tells you exactly what to fix.
+- 📋 **`sprout list`** prints the catalog of schematics plus the detected project context.
 
 ### 🏛️ Multi-Architecture Support
 Pick the layout that matches your codebase:
@@ -79,6 +83,25 @@ Both ship with **Bean Validation** out of the box (`@NotBlank`, `@Valid`).
 - Controllers use `@RestController`, `@RequestMapping`, `@ResponseStatus` — **no `ResponseEntity` ceremony**.
 - Mappers use **MapStruct** with `@Mapper(componentModel = "spring")`.
 - Entities are decorated with `@Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor`.
+
+### 🪝 Tweak the templates without recompiling
+
+Don't like Sprout's default Lombok mix or want to add custom imports? Drop a copy of the template into your project:
+
+```bash
+mkdir -p .sprout/templates/entity
+curl https://raw.githubusercontent.com/JosaaXc/sprout/main/templates/entity/jpa.java.tera \
+  > .sprout/templates/entity/jpa.java.tera
+# edit it to your taste
+```
+
+Next `sprout g resource user` will print:
+
+```
+  OVERRIDE Using local override: .sprout/templates/entity/jpa.java.tera
+```
+
+…and emit *your* version. Same template variables (`{{ packages.entity }}`, `{{ name.pascal }}`, `{{ id_type }}`, etc.) are available — see [templates/](templates/) for the full list of files you can override.
 
 ---
 
@@ -212,13 +235,13 @@ The 0.1 release nails the core CRUD slice. Here's where we're headed — **PRs w
 - [ ] 🌊 **R2DBC + WebFlux** — reactive equivalents of the JPA path (`ReactiveCrudRepository`, `Mono` / `Flux` controllers)
 - [ ] 🟪 **Kotlin templates** — same schematics, idiomatic Kotlin output (data classes, coroutines)
 - [ ] 🔭 **GraphQL** — `sprout g resolver` with Spring for GraphQL
-- [ ] 🧪 **Test scaffolding** — auto-generated `@SpringBootTest` + Testcontainers slice for each resource
+- [x] 🪝 **Custom template overrides** — `.sprout/templates/` in the project root takes precedence over embedded ones *(shipped in v0.2.0)*
+- [x] 📋 **`sprout list`** — show available schematics and the detected project context *(shipped in v0.2.0)*
+- [x] 🔧 **`sprout doctor`** — health-check the project against Sprout's expectations *(shipped in v0.2.0)*
+- [ ] 🧪 **Spring Boot test scaffolding upgrade** — `@SpringBootTest` + Testcontainers slice for each resource (basic unit tests already ship)
 - [ ] 📜 **OpenAPI annotations** — emit `@Operation`, `@ApiResponse` on generated controllers
-- [ ] 🪝 **Custom template overrides** — `.sprout/templates/` in the project root takes precedence over embedded ones
 - [ ] 🌍 **`sprout init`** — bootstrap an empty Spring Boot project with the layout already wired
 - [ ] 🧩 **Plugin system** — third-party schematics installable via `cargo install`
-- [ ] 📋 **`sprout list`** — show available schematics and the architecture currently in use
-- [ ] 🔧 **`sprout doctor`** — health-check the project against Sprout's expectations
 
 ---
 

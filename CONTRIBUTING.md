@@ -15,18 +15,21 @@ If anything here is unclear, open a [Discussion](https://github.com/JosaaXc/spro
 git clone https://github.com/<your-username>/sprout.git
 cd sprout
 
-# 2. Branch off main
+# 2. Install the pre-push hook so you never push a red build
+./scripts/install-hooks.sh
+
+# 3. Branch off main
 git checkout -b feat/short-descriptive-name
 
-# 3. Make your change, then make sure CI is green locally
-cargo fmt --all
-cargo clippy --all-targets --all-features -- -D warnings
-cargo test --all
+# 4. Make your change, then run the preflight (or rely on the hook)
+./scripts/preflight.sh
 
-# 4. Commit, push, open a PR against `main`
+# 5. Commit, push, open a PR against `main`
 git commit -m "feat(schematics): add R2DBC repository templates"
 git push origin feat/short-descriptive-name
 ```
+
+The pre-push hook runs `cargo fmt --check`, `cargo clippy -D warnings` and `cargo test --all`, which are the exact gates CI enforces. Skip it once with `git push --no-verify` if you absolutely need to (e.g., to push WIP for review).
 
 A pull request is welcome when:
 - ✅ `cargo test` passes
@@ -293,11 +296,17 @@ If your schematic needs a new prompt, add it to `prompts/`, expose the result on
 - **`cargo clippy --all-targets --all-features -- -D warnings`** — warnings break the build.
 - **`cargo test --all`** — including the doctests in `src/`.
 
-CI runs all three on every push and on every PR. Locally:
+CI runs all three on every push and on every PR. Locally, just run the preflight:
 
 ```bash
-cargo fmt --all && cargo clippy --all-targets -- -D warnings && cargo test --all
+# macOS / Linux (and Windows via git-bash or WSL)
+./scripts/preflight.sh
+
+# Windows PowerShell
+.\scripts\preflight.ps1
 ```
+
+If you ran `./scripts/install-hooks.sh` once after cloning (Unix only), the bash version runs automatically on every `git push`.
 
 ### Encouraged
 

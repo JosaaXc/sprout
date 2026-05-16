@@ -1,4 +1,5 @@
 pub mod cli;
+pub mod commands;
 pub mod context;
 pub mod error;
 pub mod naming;
@@ -32,6 +33,8 @@ pub fn run(cli: SproutCli) -> Result<()> {
 fn dispatch(cli: SproutCli) -> Result<()> {
     match cli.command {
         Command::Generate(args) => generate(args, cli.skip_test),
+        Command::List => commands::list::run(),
+        Command::Doctor => commands::doctor::run(),
     }
 }
 
@@ -49,7 +52,9 @@ fn generate(args: GenerateArgs, skip_test: bool) -> Result<()> {
     let kind = resolve_kind(args.kind, &prompter)?;
     let raw_name = resolve_name(args.name, kind, &prompter)?;
 
-    let engine = TeraEngine::with_embedded_templates()?;
+    let engine = TeraEngine::with_overrides(project.root())?;
+    engine.announce_overrides();
+
     let context = GenerationContext::build(kind, &raw_name, &project, &prompter, skip_test)?;
 
     if let Ok(build_tool) = detect_build_tool(project.root()) {

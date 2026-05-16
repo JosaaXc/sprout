@@ -75,12 +75,37 @@ const DATA_MONGO: DependencyCoord = DependencyCoord {
     purpose: "Spring Data MongoDB runtime required by MongoRepository<Entity, String>",
 };
 
-pub fn required_dependencies_for(ctx: &GenerationContext) -> Vec<DependencyCoord> {
-    let mut deps = vec![MAPSTRUCT, VALIDATION];
-    if ctx.is_jpa {
-        deps.push(DATA_JPA);
-    } else {
-        deps.push(DATA_MONGO);
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DepKind {
+    Common,
+    Jpa,
+    Mongo,
+}
+
+pub fn dependencies_for_kinds(kinds: &[DepKind]) -> Vec<DependencyCoord> {
+    let mut deps = Vec::new();
+    for kind in kinds {
+        match kind {
+            DepKind::Common => {
+                deps.push(MAPSTRUCT);
+                deps.push(VALIDATION);
+            }
+            DepKind::Jpa => deps.push(DATA_JPA),
+            DepKind::Mongo => deps.push(DATA_MONGO),
+        }
     }
     deps
+}
+
+pub fn required_dependencies_for(ctx: &GenerationContext) -> Vec<DependencyCoord> {
+    let kinds = if ctx.is_jpa {
+        [DepKind::Common, DepKind::Jpa]
+    } else {
+        [DepKind::Common, DepKind::Mongo]
+    };
+    dependencies_for_kinds(&kinds)
+}
+
+pub fn required_dependencies_for_kinds(kinds: &[DepKind]) -> Vec<DependencyCoord> {
+    dependencies_for_kinds(kinds)
 }

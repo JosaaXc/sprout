@@ -15,7 +15,7 @@ impl Schematic for ServiceSchematic {
     ) -> Result<Vec<SchematicOutput>> {
         let sub_path = ctx
             .architecture
-            .path_for(&ctx.name.kebab, ArtifactKind::Service);
+            .path_for(&ctx.name.kebab, ArtifactKind::Service, &ctx.conventions);
 
         let interface = engine.render("service/interface.java.tera", ctx)?;
         let implementation = engine.render("service/implementation.java.tera", ctx)?;
